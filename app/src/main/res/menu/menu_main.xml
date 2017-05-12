@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="project.ontime.kz.ontime.screen.main.MainActivity">
+    <item
+        android:id="@+id/action_static"
+        android:orderInCategory="100"
+        android:title="@string/action_static"
+        android:icon="@drawable/statistic"
+        app:showAsAction="always" />
+</menu>

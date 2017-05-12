@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">On Time</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="startScanMenu">start</string>
+    <string name="StopScanMenu">stop</string>
+    <string name="progressDialogConnMsgDeadNodeError">Error during the connection with the node %s</string>
+    <string name="progressDialogConnMsgUnreachableNodeError">Node %s is unreachable</string>
+    <string name="progressDialogConnMsgLostNodeError">Lost connection with the node %s</string>
+    <string name="progressDialogConnTitle">Connecting..</string>
+    <string name="progressDialogConnMsg">Connecting with: %s</string>
+    <string name="title_activity_main">On Time</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="loading">Loading</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="continue_setting">Continue</string>
+    <string name="action_static">Statistic</string>
+    <string name="title_activity_statistic">StatisticActivity</string>
+</resources>
