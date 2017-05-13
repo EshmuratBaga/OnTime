@@ -4,6 +4,7 @@ package project.ontime.kz.ontime.screen.main.countdown;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -71,7 +72,6 @@ public class CountDownFragment extends Fragment implements CountDownView{
                         return;
                     if (mNode.isEnableNotification(selectedFeature)) {
                         Log.d("dddd","isEnableNotification");
-//                        mGenericUpdate = new SideUpdate(getActivity(),typeFigure);
                         selectedFeature.removeFeatureListener(mGenericUpdate);
                         mNode.disableNotification(selectedFeature);
                     } else {
@@ -102,17 +102,23 @@ public class CountDownFragment extends Fragment implements CountDownView{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Log.d("dddd","onCreateView");
+        return inflater.inflate(R.layout.fragment_count_up, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Log.d("dddd","onViewCreated");
         initWidget(savedInstanceState);
 
-//        if (mNode.isConnected()) {
-//            Log.d("dddd","isConnect");
-//            populateFeatureList();
-//        } else{
-//            Log.d("dddd","addNodeStateListner");
-//            mNode.addNodeStateListener(mNodeStatusListener);
-//        }
-
-        return inflater.inflate(R.layout.fragment_count_up, container, false);
+        if (mNode.isConnected()) {
+            Log.d("dddd","isConnect");
+            populateFeatureList();
+        } else{
+            Log.d("dddd","addNodeStateListner");
+            mNode.addNodeStateListener(mNodeStatusListener);
+        }
     }
 
     @Override

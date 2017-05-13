@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\work\\MyProjects\\OnTime\\BlueSTSDK\\build\\intermediates\\res\\merged\\release\\layout-v21\\notification_action.xml",
+        "source": "C:\\Users\\Andrey\\.android\\build-cache\\bb28dffa7281103b83afac4d0fb97d66e530ee24\\output\\res\\layout-v21\\notification_action.xml"
+    },
+    {
+        "merged": "C:\\work\\MyProjects\\OnTime\\BlueSTSDK\\build\\intermediates\\res\\merged\\release\\layout-v21\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\Andrey\\.android\\build-cache\\bb28dffa7281103b83afac4d0fb97d66e530ee24\\output\\res\\layout-v21\\notification_template_custom_big.xml"
+    },
+    {
+        "merged": "C:\\work\\MyProjects\\OnTime\\BlueSTSDK\\build\\intermediates\\res\\merged\\release\\layout-v21\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\Andrey\\.android\\build-cache\\bb28dffa7281103b83afac4d0fb97d66e530ee24\\output\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "C:\\work\\MyProjects\\OnTime\\BlueSTSDK\\build\\intermediates\\res\\merged\\release\\layout-v21\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\Andrey\\.android\\build-cache\\bb28dffa7281103b83afac4d0fb97d66e530ee24\\output\\res\\layout-v21\\notification_action_tombstone.xml"
+    }
+]

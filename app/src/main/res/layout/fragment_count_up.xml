@@ -35,7 +35,6 @@
                 android:textColor="@android:color/black"
                 android:layout_marginBottom="14dp"
                 android:layout_gravity="center"
-                android:text="sdsadas"
                 android:textSize="16sp" />
 
             <ImageButton
@@ -50,7 +49,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Chronometer"
                 android:textColor="#000"
                 android:textSize="18dp"
                 android:layout_marginTop="14dp" />

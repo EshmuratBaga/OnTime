@@ -44,9 +44,9 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return TodayFragment.getInstance(colors);
             case 1:
-                return WeekFragment.getInstance();
+                return WeekFragment.getInstance(colors);
             case 2:
-                return MonthFragment.getInstance();
+                return MonthFragment.getInstance(colors);
         }
         return null;
     }

@@ -28,4 +28,6 @@ public interface MainView extends LoadingView{
     void identifyTypeFigure(int typeFigure);
 
     void openStatisticActivity();
+
+    void finishActivity();
 }

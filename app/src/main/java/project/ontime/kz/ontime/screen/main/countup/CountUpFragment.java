@@ -102,7 +102,15 @@ public class CountUpFragment extends Fragment implements CountUpView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.d("dddd", "onCreateView");
+        Log.d("dddd", "onCreatedView");
+        return inflater.inflate(R.layout.fragment_count_up, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Log.d("dddd", "onViewCreated");
         initWidget(savedInstanceState);
 
         if (mNode.isConnected()) {
@@ -112,8 +120,6 @@ public class CountUpFragment extends Fragment implements CountUpView {
             Log.d("dddd", "addNodeStateListner");
             mNode.addNodeStateListener(mNodeStatusListener);
         }
-
-        return inflater.inflate(R.layout.fragment_count_up, container, false);
     }
 
     @Override

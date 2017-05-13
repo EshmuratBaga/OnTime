@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -34,9 +35,6 @@ import project.ontime.kz.ontime.utils.dialog.LoadingDialog;
 import project.ontime.kz.ontime.utils.dialog.LoadingView;
 
 public class MainActivity extends AppCompatActivity implements MainView{
-
-    private final static String NODE_FRAGMENT = MainActivity.class.getCanonicalName() + "" +
-            ".NODE_FRAGMENT";
 
     private final static String NODE_TAG = MainActivity.class.getCanonicalName() + "" +
             ".NODE_TAG";
@@ -81,6 +79,10 @@ public class MainActivity extends AppCompatActivity implements MainView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_setting);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
 
         nodeTag = getIntent().getStringExtra(NODE_TAG);
         mNode = Manager.getSharedInstance().getNodeWithTag(nodeTag);
@@ -120,13 +122,17 @@ public class MainActivity extends AppCompatActivity implements MainView{
     public void openSettingActivity() {
         Intent intent = SettingActivity.getStartIntent(this,mNode);
         startActivity(intent);
-        finish();
     }
 
     @Override
     public void openStatisticActivity() {
         Intent intent = StatisticActivity.getStartIntent(this);
         startActivity(intent);
+    }
+
+    @Override
+    public void finishActivity() {
+        finish();
     }
 
     @Override
@@ -163,6 +169,10 @@ public class MainActivity extends AppCompatActivity implements MainView{
             presenter.openStatisticActivity();
             return true;
         }
+        if (id == android.R.id.home){
+            presenter.openSettingActivity();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -175,4 +185,5 @@ public class MainActivity extends AppCompatActivity implements MainView{
     public void hideLoading() {
         loadingView.hideLoading();
     }
+
 }

@@ -34,7 +34,7 @@ public class SideUpdate implements Feature.FeatureListener {
     private TextView txtTitleTask;
     private Chronometer chronometer;
     private ImageButton iBtnStop;
-    private View view = null;
+    private View view;
 
     private double[][] doda_sides = new double[][]{
             {0, -0.525731, 0.850651},

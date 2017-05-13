@@ -136,7 +136,7 @@ public class SettingActivity extends AppCompatActivity implements SettingView, V
     public static Intent getStartIntent(Context c, @NonNull Node node) {
         Intent i = new Intent(c, SettingActivity.class);
         i.putExtra(NODE_TAG, node.getTag());
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.putExtras(NodeContainerFragment.prepareArguments(node));
         return i;
     }
@@ -147,6 +147,8 @@ public class SettingActivity extends AppCompatActivity implements SettingView, V
         setContentView(R.layout.activity_setting);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         nodeTag = getIntent().getStringExtra(NODE_TAG);
         mNode = Manager.getSharedInstance().getNodeWithTag(nodeTag);
@@ -220,6 +222,7 @@ public class SettingActivity extends AppCompatActivity implements SettingView, V
                 break;
             case R.id.btn_continue:
                 Intent intent = MainActivity.getStartIntent(this,mNode);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
         }
@@ -316,39 +319,6 @@ public class SettingActivity extends AppCompatActivity implements SettingView, V
                         }
 
                     }
-//                    if (side(numXYZ[0].floatValue(),numXYZ[1].floatValue(),numXYZ[2].floatValue()) == 1 && curent != 1){
-//                        curent = 1;
-//                    }
-//                    if (side(numXYZ[0].floatValue(),numXYZ[1].floatValue(),numXYZ[2].floatValue()) == 2 && curent != 2){
-//                        curent = 2;
-//                    }
-//                    if (side(numXYZ[0].floatValue(),numXYZ[1].floatValue(),numXYZ[2].floatValue()) == 3 && curent != 3){
-//                        curent = 3;
-//                    }
-//                    if (side(numXYZ[0].floatValue(),numXYZ[1].floatValue(),numXYZ[2].floatValue()) == 4 && curent != 4){
-//                        curent = 4;
-//                    }
-//                    if (side(numXYZ[0].floatValue(),numXYZ[1].floatValue(),numXYZ[2].floatValue()) == 5 && curent != 5){
-//                        curent = 5;
-//                    }
-//                    if (side(numXYZ[0].floatValue(),numXYZ[1].floatValue(),numXYZ[2].floatValue()) == 6 && curent != 6){
-//                        curent = 6;
-//                    }
-//                    if (side(numXYZ[0].floatValue(),numXYZ[1].floatValue(),numXYZ[2].floatValue()) == 7 && curent != 7){
-//                        curent = 7;
-//                    }
-//                    if (side(numXYZ[0].floatValue(),numXYZ[1].floatValue(),numXYZ[2].floatValue()) == 8 && curent != 8){
-//                        curent = 8;
-//                    }
-//                    if (side(numXYZ[0].floatValue(),numXYZ[1].floatValue(),numXYZ[2].floatValue()) == 9 && curent != 9){
-//                        curent = 9;
-//                    }
-//                    if (side(numXYZ[0].floatValue(),numXYZ[1].floatValue(),numXYZ[2].floatValue()) == 10 && curent != 10){
-//                        curent = 10;
-//                    }
-//                    if (side(numXYZ[0].floatValue(),numXYZ[1].floatValue(),numXYZ[2].floatValue()) == 11 && curent != 11){
-//                        curent = 11;
-//                    }
                 }
             });
         }//onUpdate

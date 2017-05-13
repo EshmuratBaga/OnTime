@@ -43,6 +43,7 @@ public class MainPresenter {
         RealmResults<CubeSide> sides = realm.where(CubeSide.class).findAll();
         if (sides.size() == 0){
             view.openSettingActivity();
+            view.finishActivity();
         }else {
             TypeFigure figure = realm.where(TypeFigure.class).equalTo("isUse", true).findFirst();
             view.identifyTypeFigure(figure.getId());
@@ -71,5 +72,9 @@ public class MainPresenter {
 
     public void openStatisticActivity() {
         view.openStatisticActivity();
+    }
+
+    public void openSettingActivity() {
+        view.openSettingActivity();
     }
 }

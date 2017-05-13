@@ -22,8 +22,8 @@
         </activity>
         <activity
             android:name=".screen.main.MainActivity"
-            android:label="@string/title_activity_main"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".screen.setting.SettingActivity"
             android:label="@string/title_activity_setting"
@@ -31,7 +31,7 @@
         <activity
             android:name=".screen.statistic.StatisticActivity"
             android:label="@string/title_activity_statistic"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

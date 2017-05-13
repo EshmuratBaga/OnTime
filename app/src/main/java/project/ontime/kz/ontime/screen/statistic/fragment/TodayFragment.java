@@ -49,7 +49,7 @@ import project.ontime.kz.ontime.model.Time;
  * A simple {@link Fragment} subclass.
  */
 public class TodayFragment extends Fragment {
-    private static final String COLORS_KEY = "colorsKey";
+    private static final String COLORS_KEY = "colorsKeyToday";
 
     private PieChart pieChart;
     private LineChart lineChart;
@@ -110,7 +110,6 @@ public class TodayFragment extends Fragment {
         date = new Date();
 
         for (int i = 0; i < cubeSides.size(); i++) {
-            String name = cubeSides.get(i).getName();
             faceId = cubeSides.get(i).getId();
             for (int j = 0; j < times.size(); j++) {
                 if (times.get(j).getSideId() == faceId) {
@@ -131,7 +130,7 @@ public class TodayFragment extends Fragment {
         }
 
         initPieChart();
-        initLineChart(2);
+//        initLineChart(2);
         initBarChart();
     }
 
