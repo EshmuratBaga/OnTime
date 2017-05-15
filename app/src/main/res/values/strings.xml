@@ -17,8 +17,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_setting">Settings</string>
     <string name="continue_setting">Continue</string>
     <string name="action_static">Statistic</string>
-    <string name="title_activity_statistic">StatisticActivity</string>
+    <string name="title_activity_statistic">Statistic</string>
 </resources>

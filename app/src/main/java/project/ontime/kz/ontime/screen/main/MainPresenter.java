@@ -32,9 +32,9 @@ public class MainPresenter {
         view.transactionFragment(fragment);
     }
 
-    public void initAdapter(){
+    public void initAdapter(int typeFigure){
         realm = Realm.getDefaultInstance();
-        cubeSides = realm.where(CubeSide.class).findAll();
+        cubeSides = realm.where(CubeSide.class).equalTo("type", typeFigure).findAll();
         view.initAdapter(cubeSides);
     }
 

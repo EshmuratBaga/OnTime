@@ -34,6 +34,7 @@ import io.realm.RealmResults;
 import project.ontime.kz.ontime.R;
 import project.ontime.kz.ontime.model.CubeSide;
 import project.ontime.kz.ontime.model.Time;
+import project.ontime.kz.ontime.model.TypeFigure;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -90,7 +91,8 @@ public class WeekFragment extends Fragment {
         barChart = (BarChart) view.findViewById(R.id.bar_chart_week);
 
         realm = Realm.getDefaultInstance();
-        RealmResults<CubeSide> cubeSides = realm.where(CubeSide.class).findAll();
+        TypeFigure figure = realm.where(TypeFigure.class).equalTo("isUse",true).findFirst();
+        RealmResults<CubeSide> cubeSides = realm.where(CubeSide.class).equalTo("type",figure.getId()).findAll();
         RealmResults<Time> times = realm.where(Time.class).findAll();
 
         calendar = Calendar.getInstance();
@@ -111,7 +113,7 @@ public class WeekFragment extends Fragment {
             }
             int min = (int) ((spendtime / 1000) / 60);
             entriesBar.add(new BarEntry(i, min));
-            entries.add(new PieEntry(i, min));
+            entries.add(new PieEntry(min, i));
             spendtime = 0;
         }
 
@@ -135,6 +137,7 @@ public class WeekFragment extends Fragment {
         PieData data = new PieData(set);
         pieChart.setUsePercentValues(true);
         pieChart.setDrawHoleEnabled(true);
+        pieChart.setDescription(null);
         pieChart.setTransparentCircleRadius(35f);
         pieChart.setHoleRadius(35f);
         pieChart.animateXY(1400, 1400);
@@ -150,8 +153,9 @@ public class WeekFragment extends Fragment {
         BarData data = new BarData(set);
         data.setBarWidth(0.9f); // set custom bar width
         barChart.setData(data);
-        barChart.setDrawValueAboveBar(true);
-        barChart.setFitBars(true); // make the x-axis fit exactly all bars
+        barChart.setDescription(null);
+//        barChart.setDrawValueAboveBar(true);
+//        barChart.setFitBars(true); // make the x-axis fit exactly all bars
         barChart.invalidate(); // refresh
     }
 }

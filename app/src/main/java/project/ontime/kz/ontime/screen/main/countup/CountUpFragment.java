@@ -56,14 +56,12 @@ public class CountUpFragment extends Fragment implements CountUpView {
 
     private Node.NodeStateListener mNodeStatusListener = (node, newState, prevState) -> {
         if (newState == Node.State.Connected) {
-            Log.d("dddd", "NodeStateListener");
             getActivity().runOnUiThread(this::populateFeatureList);
         }
     };
 
     @Override
     public void populateFeatureList() {
-        Log.d("dddd", "populateFeatureList");
         if (mNode != null) {
             List<Feature> features = mNode.getFeatures();
             for (Feature f : features) {
@@ -100,9 +98,14 @@ public class CountUpFragment extends Fragment implements CountUpView {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.d("dddd", "onCreatedView");
         return inflater.inflate(R.layout.fragment_count_up, container, false);
     }
 
@@ -141,22 +144,6 @@ public class CountUpFragment extends Fragment implements CountUpView {
         }
 
     }
-
-    @Override
-    public void onResume() {
-        Log.d("dddd", "onResume");
-        super.onResume();
-
-    }//onResume
-
-    @Override
-    public void onPause() {
-        Log.d("dddd", "onPause");
-        //it is safe remove also if we didn't add it
-//        mNode.removeNodeStateListener(mNodeStatusListener);
-//        if the node is already disconnected we don't care of disable the notification
-        super.onPause();
-    }//stopDemo
 
     @Override
     public void showLoading() {

@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -199,7 +200,7 @@ public class SettingActivity extends AppCompatActivity implements SettingView, V
 
     @Override
     public void showAddTaskDialog(int side) {
-        AddTaskDialog.newInstance(side, typeFigure).show(getSupportFragmentManager(), "filterdate");
+        AddTaskDialog.newInstance(side, typeFigure).show(getSupportFragmentManager(), "addTask");
     }
 
     @Override
@@ -207,25 +208,46 @@ public class SettingActivity extends AppCompatActivity implements SettingView, V
         switch (v.getId()) {
             case R.id.iBtnCube:
                 typeFigure = 1;
+                cube.setBackground(getResources().getDrawable(R.drawable.cube));
+                octa.setBackground(getResources().getDrawable(R.drawable.ic_octa));
+                dode.setBackground(getResources().getDrawable(R.drawable.ic_dode));
                 presenter.setUseFigure(typeFigure);
                 presenter.chooseType();
                 break;
             case R.id.iBtnOcta:
                 typeFigure = 2;
+                octa.setBackground(getResources().getDrawable(R.drawable.octa));
+                cube.setBackground(getResources().getDrawable(R.drawable.ic_cube));
+                dode.setBackground(getResources().getDrawable(R.drawable.ic_dode));
                 presenter.setUseFigure(typeFigure);
                 presenter.chooseType();
                 break;
             case R.id.iBtnDode:
                 typeFigure = 3;
+                dode.setBackground(getResources().getDrawable(R.drawable.dode));
+                cube.setBackground(getResources().getDrawable(R.drawable.ic_cube));
+                octa.setBackground(getResources().getDrawable(R.drawable.ic_octa));
                 presenter.setUseFigure(typeFigure);
                 presenter.chooseType();
                 break;
             case R.id.btn_continue:
                 Intent intent = MainActivity.getStartIntent(this,mNode);
+                presenter.disableNaotification(mNode);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home){
+            presenter.disableNaotification(mNode);
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

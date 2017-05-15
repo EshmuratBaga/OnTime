@@ -23,7 +23,7 @@ public class AddTaskDialog extends DialogFragment {
 
     private static final String SIDE_FIGURE = "side";
     private static final String TYPE_FIGURE = "type";
-    private View form=null;
+    private View form = null;
     private EditText etxtTitle;
     private Realm realm;
     private CubeSide cubeSide;
@@ -47,8 +47,6 @@ public class AddTaskDialog extends DialogFragment {
 
         side = getArguments().getInt(SIDE_FIGURE);
         typeFigure = getArguments().getInt(TYPE_FIGURE);
-        Log.d("dddd","side" + side);
-        Log.d("dddd","type" + typeFigure);
     }
 
     @Override
@@ -59,37 +57,40 @@ public class AddTaskDialog extends DialogFragment {
 
         realm = Realm.getDefaultInstance();
         RealmResults<CubeSide> sides = realm.where(CubeSide.class).findAll();
-        if (sides.size() != 0){
-            cubeSide = sides.where().equalTo("side",side).findFirst();
-            if (cubeSide != null){
+        if (sides.size() != 0) {
+            cubeSide = sides.where().equalTo("side", side).equalTo("type", typeFigure).findFirst();
+            if (cubeSide != null) {
                 etxtTitle.setText(cubeSide.getName());
                 isHave = true;
             }
-        }else {
-            Log.d("ddddd","size" + 0);
+        } else {
+            Log.d("ddddd", "size" + 0);
         }
 
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setPositiveButton(android.R.string.yes, (dialog, which) -> {
-            if (isHave){
-                realm.beginTransaction();
-                cubeSide.setName(etxtTitle.getText().toString());
-                realm.copyToRealmOrUpdate(cubeSide);
-                realm.commitTransaction();
-            }else {
-                realm.beginTransaction();
-                cubeSide = new CubeSide();
-                cubeSide.setId(getNextId());
-                cubeSide.setName(etxtTitle.getText().toString());
-                cubeSide.setSide(side);
-                cubeSide.setType(typeFigure);
-                realm.insert(cubeSide);
-                realm.commitTransaction();
+            if (etxtTitle.getText().toString().length() != 0){
+                if (isHave) {
+                    realm.beginTransaction();
+                    cubeSide.setName(etxtTitle.getText().toString());
+                    realm.copyToRealmOrUpdate(cubeSide);
+                    realm.commitTransaction();
+                } else {
+                    realm.beginTransaction();
+                    cubeSide = new CubeSide();
+                    cubeSide.setId(getNextId());
+                    cubeSide.setName(etxtTitle.getText().toString());
+                    cubeSide.setSide(side);
+                    cubeSide.setType(typeFigure);
+                    realm.insert(cubeSide);
+                    realm.commitTransaction();
+                }
             }
+            dialog.dismiss();
         });
 
         builder.setNegativeButton(android.R.string.no, (dialog, which) -> {
-//                dialog.dismiss();
+            dialog.dismiss();
         });
 
         builder.setView(form).create();
@@ -103,10 +104,15 @@ public class AddTaskDialog extends DialogFragment {
         return alert;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
     private int getNextId() {
         Number currentIdNum = realm.where(CubeSide.class).max("id");
         int nextId;
-        if(currentIdNum == null) {
+        if (currentIdNum == null) {
             nextId = 1;
         } else {
             nextId = currentIdNum.intValue() + 1;

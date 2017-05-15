@@ -1,27 +1,24 @@
 package project.ontime.kz.ontime.screen.main;
 
 import android.app.Activity;
+import android.icu.util.TimeUnit;
+import android.os.AsyncTask;
 import android.os.SystemClock;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.st.BlueSTSDK.Feature;
+import com.st.BlueSTSDK.Features.Field;
 
+import at.grabner.circleprogress.CircleProgressView;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import project.ontime.kz.ontime.R;
 import project.ontime.kz.ontime.model.CubeSide;
 import project.ontime.kz.ontime.model.Time;
-import project.ontime.kz.ontime.screen.main.countup.CountUpFragment;
-
-import static project.ontime.kz.ontime.R.id.container;
 
 /**
  * Created by Andrey on 5/7/2017.
@@ -34,7 +31,9 @@ public class SideUpdate implements Feature.FeatureListener {
     private TextView txtTitleTask;
     private Chronometer chronometer;
     private ImageButton iBtnStop;
+    private CircleProgressView progressView;
     private View view;
+    private LongOperation longOperation;
 
     private double[][] doda_sides = new double[][]{
             {0, -0.525731, 0.850651},
@@ -74,9 +73,9 @@ public class SideUpdate implements Feature.FeatureListener {
     private Realm realm;
     private CubeSide cubeSide;
     private int side;
+    private int value;
 
     public SideUpdate(Activity activity, int typeFigure, View view) {
-        Log.d("dddd","constructorSideUpdate");
         this.activity = activity;
         this.typeFigure = typeFigure;
         this.view = view;
@@ -86,10 +85,10 @@ public class SideUpdate implements Feature.FeatureListener {
 
 
     public void initWidget() {
-        Log.d("dddd","initwidget");
         realm = Realm.getDefaultInstance();
         txtTitleTask = (TextView) view.findViewById(R.id.txt_task_title);
         chronometer = (Chronometer) view.findViewById(R.id.chrono);
+        progressView = (CircleProgressView) view.findViewById(R.id.progressBar);
     }
 
     @Override
@@ -145,12 +144,21 @@ public class SideUpdate implements Feature.FeatureListener {
                 for (int i = 0; i < 12; i++) {
                     if (SideUpdate.this.side(numXYZ[0].floatValue(), numXYZ[1].floatValue(), numXYZ[2].floatValue()) == i && curent != i) {
                         curent = i;
-                        cubeSide = realm.where(CubeSide.class).equalTo("side",i).findFirst();
+                        cubeSide = realm.where(CubeSide.class).equalTo("side", i).findFirst();
                         setEndTimeModel(side);
-                        txtTitleTask.setText(cubeSide.getName());
                         chronometer.setBase(SystemClock.elapsedRealtime());
-                        chronometer.start();
-                        setStratTimeModel();
+                        if (cubeSide != null) {
+                            txtTitleTask.setText(cubeSide.getName());
+                            chronometer.start();
+                            longOperation = null;
+                            longOperation = new LongOperation();
+                            longOperation.execute();
+                            setStratTimeModel();
+                        } else {
+                            txtTitleTask.setText("No task");
+                            chronometer.stop();
+                            chronometer.setBase(SystemClock.elapsedRealtime());
+                        }
                         side = i;
                     }
                 }
@@ -187,7 +195,7 @@ public class SideUpdate implements Feature.FeatureListener {
         return closest_side;
     }
 
-    public void setStratTimeModel(){
+    public void setStratTimeModel() {
         time = new Time();
         time.setId((int) (1 + System.currentTimeMillis()));
         time.setSideId(cubeSide.getId());
@@ -197,9 +205,9 @@ public class SideUpdate implements Feature.FeatureListener {
         realm.commitTransaction();
     }
 
-    public void setEndTimeModel(int side){
+    public void setEndTimeModel(int side) {
         CubeSide faceSide = realm.where(CubeSide.class).equalTo("side", side).findFirst();
-        if (realm.where(Time.class).equalTo("sideId", faceSide.getId()).findAll().size() != 0) {
+        if (faceSide != null && realm.where(Time.class).equalTo("sideId", faceSide.getId()).findAll().size() != 0) {
             RealmResults<Time> realmResults = realm.where(Time.class).equalTo("sideId", faceSide.getId()).findAll();
             time = realmResults.last();
             if (time.getEndTime() == 0) {
@@ -208,6 +216,42 @@ public class SideUpdate implements Feature.FeatureListener {
                 realm.copyToRealmOrUpdate(time);
                 realm.commitTransaction();
             }
+        }
+    }
+
+    private class LongOperation extends AsyncTask<Void, Integer, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressView.setValue(0);
+            value = 0;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            while (true) {
+                if (value == 600) {
+                    value = 0;
+                }
+                publishProgress(value);
+                try {
+                    Thread.sleep(58);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                value++;
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            progressView.setValue(values[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+//            progressView.setValueAnimated(600);
         }
     }
 }

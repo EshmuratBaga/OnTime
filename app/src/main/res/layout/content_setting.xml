@@ -14,21 +14,21 @@
         android:id="@+id/iBtnCube"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/cube"
+        android:background="@drawable/ic_cube"
         android:layout_margin="10dp"/>
 
     <ImageButton
         android:id="@+id/iBtnOcta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/octa"
+        android:background="@drawable/ic_octa"
         android:layout_margin="10dp"/>
 
     <ImageButton
         android:id="@+id/iBtnDode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/dode"
+        android:background="@drawable/ic_dode"
         android:layout_margin="10dp"/>
 
 

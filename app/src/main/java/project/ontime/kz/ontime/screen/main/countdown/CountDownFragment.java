@@ -55,7 +55,6 @@ public class CountDownFragment extends Fragment implements CountDownView{
 
     private Node.NodeStateListener mNodeStatusListener = (node, newState, prevState) -> {
         if (newState == Node.State.Connected) {
-            Log.d("dddd","NodeStateListener");
             getActivity().runOnUiThread(this::populateFeatureList);
         }
     };
@@ -99,9 +98,13 @@ public class CountDownFragment extends Fragment implements CountDownView{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 
-        Log.d("dddd","onCreateView");
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_count_up, container, false);
     }
 
@@ -109,7 +112,6 @@ public class CountDownFragment extends Fragment implements CountDownView{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d("dddd","onViewCreated");
         initWidget(savedInstanceState);
 
         if (mNode.isConnected()) {
@@ -143,8 +145,6 @@ public class CountDownFragment extends Fragment implements CountDownView{
 
     @Override
     public void onPause() {
-        Log.d("dddd","onPause");
-        mNode.removeNodeStateListener(mNodeStatusListener);
         super.onPause();
     }
 

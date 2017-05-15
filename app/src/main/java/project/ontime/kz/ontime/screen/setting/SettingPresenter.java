@@ -3,7 +3,10 @@ package project.ontime.kz.ontime.screen.setting;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.st.BlueSTSDK.Feature;
 import com.st.BlueSTSDK.Node;
+
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -84,5 +87,15 @@ public class SettingPresenter {
             realm.copyToRealmOrUpdate(figures);
             realm.commitTransaction();
         }
+    }
+
+    public void disableNaotification(Node mNode) {
+        if (mNode.isConnected()) {
+            List<Feature> features = mNode.getFeatures();
+            for (Feature f : features) {
+                if (mNode.isEnableNotification(f))
+                    mNode.disableNotification(f);
+            }
+        }//if
     }
 }

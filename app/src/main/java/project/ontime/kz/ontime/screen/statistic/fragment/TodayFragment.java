@@ -2,6 +2,7 @@ package project.ontime.kz.ontime.screen.statistic.fragment;
 
 
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -44,6 +45,7 @@ import io.realm.RealmResults;
 import project.ontime.kz.ontime.R;
 import project.ontime.kz.ontime.model.CubeSide;
 import project.ontime.kz.ontime.model.Time;
+import project.ontime.kz.ontime.model.TypeFigure;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,6 +71,7 @@ public class TodayFragment extends Fragment {
     private List<BarEntry> entriesBar = new ArrayList<>();
     private List<LegendEntry> entryList = new ArrayList<>();
     private List<Integer> colors = new ArrayList<>();
+    private List<String> nameTask = new ArrayList<>();
 
     public static TodayFragment getInstance(List<Integer> colors) {
         Bundle args = new Bundle();
@@ -102,7 +105,8 @@ public class TodayFragment extends Fragment {
         barChart = (BarChart) view.findViewById(R.id.bar_chart_today);
 
         realm = Realm.getDefaultInstance();
-        RealmResults<CubeSide> cubeSides = realm.where(CubeSide.class).findAll();
+        TypeFigure figure = realm.where(TypeFigure.class).equalTo("isUse",true).findFirst();
+        RealmResults<CubeSide> cubeSides = realm.where(CubeSide.class).equalTo("type",figure.getId()).findAll();
         RealmResults<Time> times = realm.where(Time.class).findAll();
 
         calendar = Calendar.getInstance();
@@ -110,6 +114,7 @@ public class TodayFragment extends Fragment {
         date = new Date();
 
         for (int i = 0; i < cubeSides.size(); i++) {
+            nameTask.add(cubeSides.get(i).getName());
             faceId = cubeSides.get(i).getId();
             for (int j = 0; j < times.size(); j++) {
                 if (times.get(j).getSideId() == faceId) {
@@ -124,13 +129,12 @@ public class TodayFragment extends Fragment {
                 }
             }
             int min = (int) ((spendtime / 1000) / 60);
-            entries.add(new PieEntry(i, min));
+            entries.add(new PieEntry(min, i));
             entriesBar.add(new BarEntry(i, min));
             spendtime = 0;
         }
 
         initPieChart();
-//        initLineChart(2);
         initBarChart();
     }
 
@@ -201,7 +205,9 @@ public class TodayFragment extends Fragment {
 
         PieData data = new PieData(set);
         pieChart.setUsePercentValues(true);
+        pieChart.setDrawEntryLabels(true);
         pieChart.setDrawHoleEnabled(true);
+        pieChart.setDescription(null);
         pieChart.setTransparentCircleRadius(35f);
         pieChart.setHoleRadius(35f);
         pieChart.animateXY(1400, 1400);
@@ -217,8 +223,7 @@ public class TodayFragment extends Fragment {
         BarData data = new BarData(set);
         data.setBarWidth(0.9f); // set custom bar width
         barChart.setData(data);
-        barChart.setDrawValueAboveBar(true);
-        barChart.setFitBars(true); // make the x-axis fit exactly all bars
+        barChart.setDescription(null);
         barChart.invalidate(); // refresh
     }
 }

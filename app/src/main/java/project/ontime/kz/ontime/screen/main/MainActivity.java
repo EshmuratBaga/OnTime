@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        presenter.initAdapter();
+        presenter.initAdapter(typeFigure);
     }
 
     @Override
@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         }
         if (id == android.R.id.home){
             presenter.openSettingActivity();
+            presenter.disableNaotification(mNode);
             return true;
         }
         return super.onOptionsItemSelected(item);
