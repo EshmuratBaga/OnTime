@@ -7,4 +7,7 @@
     <color name="portage">#5775ce</color>
     <color name="royal_blue">#5f50ab</color>
     <color name="blue_er">#6fa7ca</color>
+    
+    <array name="colors">
+    </array>
 </resources>

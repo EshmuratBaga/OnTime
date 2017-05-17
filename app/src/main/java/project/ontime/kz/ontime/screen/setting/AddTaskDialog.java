@@ -86,12 +86,10 @@ public class AddTaskDialog extends DialogFragment {
                     realm.commitTransaction();
                 }
             }
-            dialog.dismiss();
+            dialog.cancel();
         });
 
-        builder.setNegativeButton(android.R.string.no, (dialog, which) -> {
-            dialog.dismiss();
-        });
+        builder.setNegativeButton(android.R.string.no, (dialog, which) -> dialog.cancel());
 
         builder.setView(form).create();
 
@@ -107,6 +105,11 @@ public class AddTaskDialog extends DialogFragment {
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     private int getNextId() {

@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_gravity="center">
 
         <at.grabner.circleprogress.CircleProgressView
             android:id="@+id/progressBar"
@@ -16,14 +16,16 @@
             android:layout_height="300dp"
             android:layout_centerInParent="true"
             CircleProgressView:cpv_barColor="@color/colorPrimary"
-            CircleProgressView:cpv_barWidth="35dp"
+            CircleProgressView:cpv_barWidth="30dp"
             CircleProgressView:cpv_innerContourSize="0dp"
-            CircleProgressView:cpv_maxValue="600"
+            CircleProgressView:cpv_maxValue="59"
             CircleProgressView:cpv_outerContourSize="0dp"
             CircleProgressView:cpv_rimColor="@color/colorAccent"
-            CircleProgressView:cpv_rimWidth="35dp"
+            CircleProgressView:cpv_rimWidth="30dp"
             CircleProgressView:cpv_unitColor="@color/colorPrimaryDark"
             CircleProgressView:cpv_unitPosition="right_top"
+            CircleProgressView:cpv_blockCount="60"
+            CircleProgressView:cpv_blockScale="10"
             CircleProgressView:cpv_unitScale="1"
             CircleProgressView:cpv_value="1" />
 

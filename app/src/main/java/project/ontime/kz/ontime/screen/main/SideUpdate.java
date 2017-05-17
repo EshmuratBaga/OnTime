@@ -140,7 +140,6 @@ public class SideUpdate implements Feature.FeatureListener {
             }
 
             if (px && py && pz) {
-//                Log.d("dddd", "" + SideUpdate.this.side(numXYZ[0].floatValue(), numXYZ[1].floatValue(), numXYZ[2].floatValue()));
                 for (int i = 0; i < 12; i++) {
                     if (SideUpdate.this.side(numXYZ[0].floatValue(), numXYZ[1].floatValue(), numXYZ[2].floatValue()) == i && curent != i) {
                         curent = i;
@@ -149,10 +148,9 @@ public class SideUpdate implements Feature.FeatureListener {
                         chronometer.setBase(SystemClock.elapsedRealtime());
                         if (cubeSide != null) {
                             txtTitleTask.setText(cubeSide.getName());
-                            chronometer.start();
-                            longOperation = null;
                             longOperation = new LongOperation();
                             longOperation.execute();
+                            chronometer.start();
                             setStratTimeModel();
                         } else {
                             txtTitleTask.setText("No task");
@@ -230,12 +228,12 @@ public class SideUpdate implements Feature.FeatureListener {
         @Override
         protected Void doInBackground(Void... params) {
             while (true) {
-                if (value == 600) {
+                if (value == 59) {
                     value = 0;
                 }
                 publishProgress(value);
                 try {
-                    Thread.sleep(58);
+                    Thread.sleep(980);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -247,11 +245,6 @@ public class SideUpdate implements Feature.FeatureListener {
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
             progressView.setValue(values[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-//            progressView.setValueAnimated(600);
         }
     }
 }
